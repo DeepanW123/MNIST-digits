@@ -1,7 +1,6 @@
 import pygame
 import numpy as np
 import tensorflow as tf
-import cv2  # OpenCV for smoothing
 
 # Initialize Pygame
 pygame.init()
@@ -23,16 +22,11 @@ font = pygame.font.SysFont("Arial", 40)
 grid = np.zeros((GRID_SIZE, GRID_SIZE), dtype=np.uint8)
 
 # Load pre-trained model
-model = tf.keras.models.load_model('best_model.h5')
+model = tf.keras.models.load_model('code/best_model.h5')
 
-# # Apply Gaussian blur for smoothing
-# def smooth_image(grid):
-#     return cv2.GaussianBlur(grid, (3, 3), 0)
 
 # Predict digit after smoothing
 def predict_digit(grid):
-    #smoothed_grid = smooth_image(grid)
-    #img = smoothed_grid.reshape(1, 28, 28, 1) / 255.0
     img = grid.reshape(1, 28, 28, 1) / 255.0
     prediction = model.predict(img)
     print(prediction)
